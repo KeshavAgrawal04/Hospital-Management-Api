@@ -25,13 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^xhl(d2zpr^x#$h(4uw332=lg*+^$t!+83%ul*h^hmrw@c--&h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '192.168.0.7',
     '.vercel.app'
-    # '192.168.46.147',
 ]
 
 
@@ -110,16 +109,6 @@ DATABASES = {
     }
 }
 
-# EMAIL CONFIGRATION
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = False
-# EMAIL_HOST_USER = 'agrkeshav@gmail.com'
-# EMAIL_HOST_PASSWORD = 'iqcbexiduucluazm'
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -165,6 +154,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     'version': 1,
 #     'disable_existing_loggers': False,
 #     'formatters': {
+#         'main_formatter': {
+#             '()': CustomJsonFormatter,
+#         },
 #         'verbose': {
 #             'format': '{levelname} {asctime} {module} {message}',
 #             'style': '{',
@@ -178,13 +170,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         'console': {
 #             'level': 'INFO',
 #             'class': 'logging.StreamHandler',
-#             'formatter': 'simple',
+#             'formatter': 'main_formatter',
 #         },
 #        'file': {
 #            'level': 'INFO',
 #            'class': 'logging.FileHandler',
 #            'filename': 'logs.log',
-#             'formatter': 'simple',
+#             'formatter': 'main_formatter',
 #        },
 #     },
 #     'loggers': {
@@ -194,3 +186,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #         },
 #     },
 # }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'json': {
+            '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
+            'format': '%(levelname)s %(asctime)s %(message)s %(filename)s',
+        },
+    },
+    'handlers': {
+        'json_file': {
+            'level': 'INFO', 
+            'class': 'logging.FileHandler',
+            'filename': 'logs.log',
+            'formatter': 'json',
+        },
+    },
+    'root': {
+        'handlers': ['json_file'],
+        'level': 'INFO', 
+    },
+}
+

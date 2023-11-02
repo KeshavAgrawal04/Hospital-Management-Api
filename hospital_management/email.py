@@ -8,8 +8,8 @@ from email import encoders
 
 smtp_server = "smtp.gmail.com"
 smtp_port = 587  
-smtp_username = "agrkeshav04@gmail.com"
-smtp_password = "iqcbexiduucluazm"
+smtp_username = "achieversgrand@gmail.com"
+smtp_password = "Code@123"
 
 def send_email_to_client(data):
     cal = Calendar()
